@@ -647,7 +647,7 @@
     <!-- Left Panel -->
     <aside class="panel left-panel" id="leftPanel">
       <div class="panel-header">
-        <span>🔬</span> شرح النسيج
+        <span>🔬</span> Tissue Info 
       </div>
       <div class="panel-content">
         <p>
@@ -740,7 +740,7 @@ PREMANANDANThe Ohio State University</mark>
     <!-- Right Panel -->
     <aside class="panel right-panel" id="rightPanel">
       <div class="panel-header">
-        <span>🧩</span> أجزاء النسيج
+        <span>🧩</span>Tissue parts
       </div>
       <div class="panel-content">
         <div id="partsList">جاري التحميل...</div>
@@ -751,14 +751,14 @@ PREMANANDANThe Ohio State University</mark>
     <footer class="footer">
       <button class="icon-btn" onclick="resetCamera()" title="إعادة تعيين الكاميرا">🎥</button>
       <button class="icon-btn" onclick="highlightRandom()" title="تمييز عشوائي">🎲</button>
-      <button class="icon-btn" onclick="goToMicroscop()" title="عرض المجهر">🔬</button>
+      <button class="icon-btn" onclick="goToMicroscop()" title=" microscope">🔬</button>
     </footer>
   </div>
 
   <!-- Info Panel -->
   <div class="info-panel" id="infoPanel">
     <div class="panel-header">
-      <span id="infoTitle">تفاصيل الجزء</span>
+      <span id="infoTitle"> Tissue parts</span>
       <button class="close-btn" onclick="closeInfoPanel()">✖</button>
     </div>
     <div id="infoText">اختر جزء من قائمة أجزاء النسيج لعرض التفاصيل...</div>
@@ -766,7 +766,7 @@ PREMANANDANThe Ohio State University</mark>
 
   <!-- Gallery -->
   <div class="gallery-container" id="galleryContainer">
-    <div class="gallery-title">الشرائح المجهرية</div>
+    <div class="gallery-title"> Slides</div>
     <div class="gallery" id="gallery">
       <img src="1.jpg" alt=" 1" class="gallery-img">
       <img src="2.jpg" alt=" 2" class="gallery-img">
@@ -1007,7 +1007,7 @@ They produce melanin, the pigment that gives skin its color and protects it from
       // Show All button
       const menuBtn = document.createElement("button");
       menuBtn.className = "menu-btn";
-      menuBtn.textContent = "عرض جميع الأجزاء";
+      menuBtn.textContent = " Show All Parts";
       menuBtn.onclick = (ev) => {
         ev.stopPropagation();
         clearHighlight();
