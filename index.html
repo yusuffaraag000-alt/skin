@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    /* ⚙️ الأساس العام */
+body {
+  background: #0e0e10;
+  color: #f0f0f0;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.8;
+  margin: 0;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 🧱 تنسيق المحتوى الأساسي */
+main {
+  max-width: 900px;
+  width: 100%;
+  background: #1a1a1d;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+/* ✨ العناوين */
+h1, h2, h3 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 📖 الفقرات */
+p {
+  text-align: justify;
+  margin-bottom: 18px;
+  font-size: 1rem;
+}
+
+/* 🎨 تحديد النصوص (هايلايت) */
+mark.highlight {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+mark:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* 🧭 فواصل */
+hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 30px 0;
+  width: 100%;
+}
+
+/* 📱 استجابة الموبايل */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  main {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  mark.highlight {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* 📱 شاشات أصغر جدًا (موبايلات صغيرة جدًا) */
+@media (max-width: 480px) {
+  main {
+    padding: 14px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.1rem;
+  }
+}
+
+  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Histology - Veterinary Skin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #ffffff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ff77ff;
+      text-shadow: 0 0 20px rgba(255, 119, 255, 0.5);
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toggle-btn:hover {
+      background: rgba(255, 119, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 119, 255, 0.3);
+    }
+
+    .toggle-btn.active {
+      background: rgba(255, 119, 255, 0.3);
+      border-color: #ff77ff;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: grid;
+      grid-template-columns: 300px 1fr 300px;
+      grid-template-rows: 60px 1fr auto;
+      grid-template-areas:
+        "header header header"
+        "left viewer right"
+        "footer footer footer";
+      min-height: 100vh;
+      gap: 20px;
+      padding: 20px;
+      padding-top: 80px;
+    }
+
+    /* Panels */
+    .panel {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .panel.collapsed {
+      width: 60px;
+      padding: 20px 10px;
+      opacity: 0.7;
+    }
+
+    .panel.collapsed .panel-content {
+      display: none;
+    }
+
+    .panel.collapsed .panel-header {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
+
+    .panel-header {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ff77ff;
+      margin-bottom: 15px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .panel-content {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Left Panel */
+    .left-panel {
+      grid-area: left;
+    }
+
+    /* Viewer */
+    .viewer-container {
+      grid-area: viewer;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      position: relative;
+      min-height: 500px;
+    }
+
+    #viewer {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+
+    /* Right Panel */
+    .right-panel {
+      grid-area: right;
+    }
+
+#infoPanel {
+  position: fixed;
+  top: 50%;
+  right: 360px; /* بجانب القايمة اليمنى */
+  width: 360px;
+  height: 65%; /* ✅ الطول أقل من الشاشة */
+  background: rgba(20, 10, 35, 0.96);
+  color: #fff;
+  padding: 25px;
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.6);
+  transform: translate(120%, -50%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 999;
+  border-left: 2px solid #ffb6ea;
+  border-radius: 20px;
+  pointer-events: none;
+}
+#infoPanel::-webkit-scrollbar {
+  width: 6px;
+}
+#infoPanel::-webkit-scrollbar-thumb {
+  background: #ffb6ea;
+  border-radius: 10px;
+}
+#infoPanel h3 {
+  color: #ffb6ea;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+#infoPanel p {
+  line-height: 1.6;
+  color: #e0d6ff;
+}
+
+/* لما تظهر */
+#infoPanel.show {
+  transform: translate(0, -50%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Buttons */
+    .part-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 8px 0;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .part-btn:hover {
+      background: linear-gradient(135deg, rgba(255, 119, 255, 0.3), rgba(180, 100, 255, 0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 119, 255, 0.3);
+      color: #ffffff;
+    }
+
+    .menu-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 15px 0;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, rgba(120, 80, 200, 0.3), rgba(80, 60, 150, 0.2));
+      border: 1px solid rgba(180, 120, 255, 0.4);
+      border-radius: 15px;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-btn:hover {
+      background: linear-gradient(135deg, rgba(150, 100, 255, 0.5), rgba(120, 80, 200, 0.3));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(150, 100, 255, 0.4);
+    }
+
+    /* Footer */
+    .footer {
+      grid-area: footer;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 119, 255, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(255, 119, 255, 0.3);
+    }
+
+    /* Gallery */
+    .gallery-container {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 800px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      display: none;
+      max-height: 200px;
+      overflow-x: auto;
+    }
+
+    .gallery-container.show {
+      display: block;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .gallery-title {
+      color: #ff77ff;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .gallery-img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.2);
+      box-shadow: 0 5px 15px rgba(255, 119, 255, 0.4);
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 3000;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .overlay.show img {
+      transform: scale(1);
+    }
+
+    .overlay .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .overlay .close-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .main-container {
+        grid-template-columns: 250px 1fr 250px;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px auto auto auto;
+        grid-template-areas:
+          "header"
+          "viewer"
+          "left"
+          "right";
+        padding: 10px;
+        gap: 15px;
+      }
+
+      .panel {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .header {
+        padding: 0 15px;
+      }
+
+      .header-title {
+        font-size: 18px;
+      }
+
+      .header-controls {
+        gap: 10px;
+      }
+
+      .toggle-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .gallery-container {
+        width: 95%;
+      }
+    }
+
+    /* Scrollbar */
+    .panel::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .panel::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .panel::-webkit-scrollbar-thumb {
+      background: #ff77ff;
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(255, 119, 255, 0.5);
+    }
+
+    .panel::-webkit-scrollbar-thumb:hover {
+      background: #ff55ee;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.6s ease;
+    }
+
+    .slide-up {
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Highlights */
+    .highlight {
+      color: #ff77ff;
+      font-weight: bold;
+      background: linear-gradient(135deg, rgba(255, 119, 255, 0.2), rgba(180, 100, 255, 0.1));
+      padding: 2px 6px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(255, 119, 255, 0.3);
+    }
+
+    .highlight-section {
+      color: #ffa07a;
+      font-weight: bold;
+      border-right: 3px solid #ff77ff;
+      padding-right: 8px;
+      margin: 15px 0 8px 0;
+    }
+
+    .highlight-yellow {
+      color: #ffcc00;
+      font-weight: bold;
+    }
+
+    .highlight-cyan {
+      color: #7ef3ff;
+      font-weight: 600;
+      background: rgba(126, 243, 255, 0.1);
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header-title">🔬 Histology - Skin</h1>
+    <div class="header-controls">
+      <button class="toggle-btn" id="toggleLeft" title="Tissue Explanation">
+        <span>📖</span> Tissue Explanation
+      </button>
+      <button class="toggle-btn" id="toggleRight" title="Tissue Parts">
+        <span>🧩</span> Tissue Parts
+      </button>
+      <button class="toggle-btn" id="toggleGallery" title="Slides">
+        <span>🖼️</span> Slides
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Left Panel -->
+    <aside class="panel left-panel" id="leftPanel">
+      <div class="panel-header">
+        <span>🔬</span> شرح النسيج
+      </div>
+      <div class="panel-content">
+        <p>
+     
+<p>
+  <mark class="highlight">The integumentary system, or skin, represents the interface between the internal body and the external environment.</mark> 
+  As such, the primary role of skin is protection. This includes protection from physical insults, including UV light, as well as providing a barrier to pathogens. In addition, the skin is crucial to an animal’s thermoregulation, sensing of its environment, and energy and metabolic functions.
+</p>
+
+<p>
+  <mark class="highlight">The skin is composed of three primary components: Epidermis, Dermis, and Subcutaneous tissue (also known as the hypodermis or subcutis).</mark> 
+  The skin is thickest over the dorsal surface of the body and on the lateral surfaces of the limbs. It is thinnest on the ventral surface of the body and medial surfaces of the limbs. The surface of the skin may be smooth in some areas but has ridges or folds in other regions that reflect the contour of the underlying connective tissue layer. The basic architecture of the integument is similar in all mammals. However, differences in the thickness of the epidermis and dermis in various regions of the body exist between species and within the same species.
+</p>
+
+<hr>
+
+<p>
+  <mark class="highlight">The epidermis is a keratinized stratified squamous epithelium derived from ectoderm and is the outermost layer of the skin.</mark>
+  In regions with a heavy protective coat of hair, the epidermis is thin; in nonhairy skin, such as that of the mucocutaneous junctions, the epidermis is thicker. Cells of the epidermis undergo an orderly pattern of proliferation, differentiation, and keratinization, the processes of which are not completely understood. During development, the epidermis can become specialized to form various skin appendages such as hair; sweat and sebaceous glands; digital organs, hoof, claw, digital pads, feathers, horn; and specialized glands.
+</p>
+
+<p>
+  <mark class="highlight">Keratinocytes comprise about 85% of the epidermal cells and are classified into layers based on morphology.</mark> They vary in size and shape and differentiate as they migrate upward to form keratin.
+</p>
+
+<p>
+  <mark class="highlight">Nonkeratinocytes are scattered throughout the epidermis and include melanocytes, tactile epithelioid cells (Merkel cells), and intraepidermal macrophages.</mark>
+</p>
+
+<hr>
+
+<p>
+  <mark class="highlight">Melanocytes are derivatives of neural crest ectoderm and are located in the basal layer of the epidermis.</mark> They also occur in the external epithelial root sheath and hair matrix of hair follicles, in sweat gland ducts, and in sebaceous glands. Melanocytes have several dendritic processes that either extend between adjacent keratinocytes or run parallel to the basement membrane.
+</p>
+
+<p>
+  <mark class="highlight">The melanocyte has a spherical nucleus and contains typical organelles (ribosomes, endoplasmic reticulum, Golgi, etc.).</mark> The cytoplasm is clear except for pigment-containing ovoid granules, which are referred to as melanosomes. The melanosomes impart color to skin and hair. Dark brown pigment in skin is called eumelanin, while yellowish-red pigment is called pheomelanin.
+</p>
+
+<p>
+  <mark class="highlight">The enzyme tyrosinase is needed to produce melanin within the melanocytes.</mark> Albino animals lack tyrosinase; therefore, they cannot produce melanin, even though they have a normal number of melanocytes. After melanogenesis, the melanosomes migrate to the tips of the dendritic processes of the melanocyte; the tips then become pinched off and are phagocytized by the adjacent keratinocytes.
+</p>
+
+<hr>
+
+<p>
+  <mark class="highlight">Langerhans cells are dendritic cells sparsely located within the stratum basale.</mark> Although they are functionally different from melanocytes, they also appear histologically as “clear cells”. As dendritic cells, the primary function of Langerhans cells is to take up antigens and present them to and activate cells of the immune system, such as T cells.
+</p>
+
+<p>
+  <mark class="highlight">Tactile epithelioid cells (Merkel cells) are located in the basal region of the epidermis.</mark> Their long axis is parallel to the skin's surface, and the nucleus is lobulated and irregular. The cytoplasm is clear and contains spherical electron-dense granules with chemical mediators. These cells are connected to keratinocytes by desmosomes. When associated with an axon, a tactile epithelioid cell–neurite complex is formed.
+</p>
+
+<hr>
+
+<p>
+  <mark class="highlight">The stratum basale (Stratum germinativum) consists of a single layer of columnar or cuboidal cells that rests on the basal lamina.</mark> The cells are attached laterally to each other and to the overlying stratum spinosum cells by desmosomes and to the underlying basal lamina by hemidesmosomes.
+</p>
+
+<p>
+  <mark class="highlight">The stratum spinosum is located directly above the stratum basale.</mark> Cells of the stratum spinosum have prominent desmosomes that appear as spiny projections on histology. These are referred to as “prickle cells”. Tonofilaments anchor desmosomes to the cell membranes.
+</p>
+
+<p>
+  <mark class="highlight">The stratum granulosum sits above the stratum spinosum and directly below the stratum corneum.</mark> It is a thin layer of keratinocytes containing dense keratohyalin granules that are essential for keratinization.
+</p>
+
+<p>
+  <mark class="highlight">The stratum corneum is the variably thick outermost layer of the skin.</mark> Cells of the stratum corneum are flattened anuclear keratinocytes (corneocytes) that provide a waterproof barrier.
+  <hr>
+  <mark class="highlight">Dellmann’s
+Textbook of 
+Veterinary Histology
+
+VETERINARY HISTOLOGY
+RYAN JENNINGS AND CHRISTOPHER
+PREMANANDANThe Ohio State University</mark>
+</p>
+<script>
+  
+</script>
+      </div>
+    </aside>
+
+    <!-- Viewer -->
+    <main class="viewer-container">
+      <div id="viewer"></div>
+    </main>
+
+    <!-- Right Panel -->
+    <aside class="panel right-panel" id="rightPanel">
+      <div class="panel-header">
+        <span>🧩</span> أجزاء النسيج
+      </div>
+      <div class="panel-content">
+        <div id="partsList">جاري التحميل...</div>
+      </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button class="icon-btn" onclick="resetCamera()" title="إعادة تعيين الكاميرا">🎥</button>
+      <button class="icon-btn" onclick="highlightRandom()" title="تمييز عشوائي">🎲</button>
+      <button class="icon-btn" onclick="goToMicroscop()" title="عرض المجهر">🔬</button>
+    </footer>
+  </div>
+
+  <!-- Info Panel -->
+  <div class="info-panel" id="infoPanel">
+    <div class="panel-header">
+      <span id="infoTitle">تفاصيل الجزء</span>
+      <button class="close-btn" onclick="closeInfoPanel()">✖</button>
+    </div>
+    <div id="infoText">اختر جزء من قائمة أجزاء النسيج لعرض التفاصيل...</div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="gallery-container" id="galleryContainer">
+    <div class="gallery-title">الشرائح المجهرية</div>
+    <div class="gallery" id="gallery">
+      <img src="1.jpg" alt=" 1" class="gallery-img">
+      <img src="2.jpg" alt=" 2" class="gallery-img">
+      <img src="3.jpg" alt=" 3" class="gallery-img">
+      <img src="4.jpg" alt=" 4" class="gallery-img">
+      <img src="5.jpg" alt=" 5" class="gallery-img">
+      <img src="6.jpg" alt=" 6" class="gallery-img">
+      <img src="7.jpg" alt=" 7" class="gallery-img">
+      <img src="8.jpg" alt=" 8" class="gallery-img">
+      <img src="9.jpg" alt=" 9" class="gallery-img">
+      <img src="10.jpg" alt=" 10" class="gallery-img">
+      <img src="11.jpg" alt=" 11" class="gallery-img">
+      <img src="12.jpg" alt=" 12" class="gallery-img">
+      <img src="13.jpg" alt=" 13" class="gallery-img">
+      <img src="14.jpg" alt=" 14" class="gallery-img">
+      <img src="15.jpg" alt=" 15" class="gallery-img">
+      <img src="16.jpg" alt=" 16" class="gallery-img">
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay">
+    <button class="close-btn" onclick="closeOverlay()">✖</button>
+    <img id="overlayImg" src="" alt="">
+  </div>
+
+  <!-- Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    // Variables
+    let scene, camera, renderer, controls, model;
+    const viewer = document.getElementById("viewer");
+    const partsList = document.getElementById("partsList");
+    const infoPanel = document.getElementById("infoPanel");
+    const infoTitle = document.getElementById("infoTitle");
+    const infoText = document.getElementById("infoText");
+    let currentOpen = null;
+
+    // Name mapping
+  const nameMap = {
+  "Epidermis": "Epidermis",
+  "Dermis": "Dermis",
+  "Hypodermis": "Hypodermis",
+  "Hair_follicle": "Hair_follicle",
+  "Sweat_gland": "Sweat_gland",
+  
+  // 🟢 الأجزاء الجديدة
+  "Stratum_lucidum": "Stratum_lucidum",
+  "Granular_layer": "Granular_layer",
+  "Prickle_cell_layer": "Prickle_cell_layer",
+  "Keratin_layer": "Keratin_layer",
+  "Langerhans_cell": "Langerhans_cell",
+  "Basal_layer": "Basal_layer",
+  "Melanocyte": "Melanocyte"
+};
+
+
+
+    // Part data
+
+const partData = {
+  "Stratum_lucidum": {
+    details: [{
+      title: "Description",
+      text: `A thin, clear layer of dead keratinized cells found only in thick skin (like palms and soles).
+
+It provides extra protection and reduces friction between the outer and inner epidermal layers.`
+    }]
+  },
+  "Granular_layer": {
+    details: [{
+      title: "Description",
+      text: `Also known as the Stratum granulosum.
+
+Contains keratinocytes filled with keratohyalin granules that help form keratin and waterproof the skin.
+
+This layer marks the transition between living cells and dead cells in the epidermis.`
+    }]
+  },
+  "Prickle_cell_layer": {
+    details: [{
+      title: "Description",
+      text: `Also called the Stratum spinosum.
+
+Composed of polygonal keratinocytes connected by desmosomes, giving a "spiny" appearance.
+
+Provides strength and flexibility to the skin.`
+    }]
+  },
+  "Keratin_layer": {
+    details: [{
+      title: "Description",
+      text: `Also known as the Stratum corneum.
+
+The outermost layer made of dead, flattened keratinized cells.
+
+Protects underlying tissues from mechanical damage, pathogens, and dehydration.`
+    }]
+  },
+  "Langerhans_cell": {
+    details: [{
+      title: "Description",
+      text: `Specialized immune cells found in the Stratum spinosum.
+
+They detect and process foreign substances (antigens) and help activate the immune response of the skin.`
+    }]
+  },
+  "Basal_layer": {
+    details: [{
+      title: "Description",
+      text: `Also called the Stratum basale.
+
+The deepest layer of the epidermis, made of basal cells that continuously divide to replace old skin cells.
+
+Contains melanocytes and Merkel cells responsible for pigment and touch sensation.`
+    }]
+  },
+  "Melanocyte": {
+    details: [{
+      title: "Description",
+      text: `Pigment-producing cells located in the basal layer.
+
+They produce melanin, the pigment that gives skin its color and protects it from UV radiation.`
+    }]
+  }
+};
+
+
+
+    // Initialize
+    init();
+    loadModel();
+    animateBackground();
+    setupEventListeners();
+
+    function init() {
+      // Scene
+      scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x000000, 5, 15);
+
+      // Camera
+      camera = new THREE.PerspectiveCamera(60, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+      camera.position.set(0, 1, 5);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.2;
+      viewer.appendChild(renderer.domElement);
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(4, 4, 6);
+      directionalLight.castShadow = true;
+      directionalLight.shadow.mapSize.width = 2048;
+      directionalLight.shadow.mapSize.height = 2048;
+      scene.add(directionalLight);
+
+      const pointLight = new THREE.PointLight(0xff77ff, 0.5, 10);
+      pointLight.position.set(-2, 2, 2);
+      scene.add(pointLight);
+
+      // Controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
+      controls.minDistance = 2;
+      controls.maxDistance = 10;
+
+      // Window resize
+      window.addEventListener("resize", onWindowResize);
+    }
+
+    function loadModel() {
+      const loader = new THREE.GLTFLoader();
+      loader.load(
+        "Skin.glb",
+        (gltf) => {
+          model = gltf.scene;
+          scene.add(model);
+
+          // Center and scale
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 2 / maxDim;
+          model.scale.setScalar(scale);
+          model.position.sub(center.multiplyScalar(scale));
+
+          // Enable shadows
+          model.traverse((child) => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              child.material = child.material.clone();
+            }
+          });
+
+          generatePartsList(model);
+          animate();
+        },
+        (progress) => {
+          console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+        },
+        (error) => {
+          console.error("Error loading model:", error);
+        }
+      );
+    }
+
+    function generatePartsList(model) {
+      const meshes = [];
+      model.traverse(c => {
+        if (c.isMesh && !c.name.toLowerCase().includes("object")) {
+          meshes.push(c);
+        }
+      });
+
+      partsList.innerHTML = "";
+
+      // Show All button
+      const menuBtn = document.createElement("button");
+      menuBtn.className = "menu-btn";
+      menuBtn.textContent = "عرض جميع الأجزاء";
+      menuBtn.onclick = (ev) => {
+        ev.stopPropagation();
+        clearHighlight();
+      };
+      partsList.appendChild(menuBtn);
+
+      // Part buttons
+      meshes.forEach(m => {
+        const arabicName = nameMap[m.name] || m.name.replace(/_/g, " ");
+        const btn = document.createElement("button");
+        btn.className = "part-btn";
+        btn.textContent = arabicName;
+        btn.onclick = (ev) => {
+          ev.stopPropagation();
+          highlightPart(m);
+          showPartInfo(arabicName);
+        };
+        partsList.appendChild(btn);
+      });
+    }
+
+    function clearHighlight() {
+      if (!model) return;
+      model.traverse(c => {
+        if (c.isMesh && c.material?.emissive) {
+          c.material.emissive.set(0x000000);
+        }
+      });
+    }
+
+    function highlightPart(mesh) {
+      clearHighlight();
+      if (mesh.material?.emissive) {
+        mesh.material.emissive.set(0x4444ff);
+      }
+    }
+
+    function showPartInfo(partName) {
+      const data = partData[partName];
+      if (currentOpen === partName) {
+        closeInfoPanel();
+        clearHighlight();
+        currentOpen = null;
+        return;
+      }
+
+      infoTitle.textContent = partName;
+      infoText.innerHTML = "";
+
+      if (data && data.details) {
+        data.details.forEach((item) => {
+          const section = document.createElement("div");
+          section.innerHTML = `<h4>${item.title}</h4><p>${item.text.replace(/\n/g, "<br>")}</p>`;
+          infoText.appendChild(section);
+        });
+      } else {
+        infoText.innerHTML = `<p>لا توجد بيانات نسيجية متاحة لـ ${partName}</p>`;
+      }
+
+      infoPanel.classList.add("show");
+      currentOpen = partName;
+    }
+
+    function closeInfoPanel() {
+      infoPanel.classList.remove("show");
+      currentOpen = null;
+    }
+
+    function setupEventListeners() {
+      // Panel toggles
+      document.getElementById("toggleLeft").addEventListener("click", () => {
+        togglePanel("leftPanel");
+      });
+
+      document.getElementById("toggleRight").addEventListener("click", () => {
+        togglePanel("rightPanel");
+      });
+
+      document.getElementById("toggleGallery").addEventListener("click", () => {
+        toggleGallery();
+      });
+
+      // Gallery
+      document.querySelectorAll(".gallery-img").forEach(img => {
+        img.addEventListener("click", () => {
+          openOverlay(img.src);
+        });
+      });
+
+      // Overlay
+      document.getElementById("overlay").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("overlay")) {
+          closeOverlay();
+        }
+      });
+
+      // Click outside panels to close info
+      document.addEventListener("click", (e) => {
+        if (!infoPanel.contains(e.target) && !document.querySelector(".right-panel").contains(e.target)) {
+          closeInfoPanel();
+        }
+      });
+    }
+
+    function togglePanel(panelId) {
+      const panel = document.getElementById(panelId);
+      const toggleBtn = document.getElementById(`toggle${panelId.charAt(0).toUpperCase() + panelId.slice(1)}`);
+
+      panel.classList.toggle("collapsed");
+      toggleBtn.classList.toggle("active");
+    }
+
+    function toggleGallery() {
+      const gallery = document.getElementById("galleryContainer");
+      const toggleBtn = document.getElementById("toggleGallery");
+
+      gallery.classList.toggle("show");
+      toggleBtn.classList.toggle("active");
+    }
+
+    function openOverlay(src) {
+      const overlay = document.getElementById("overlay");
+      const overlayImg = document.getElementById("overlayImg");
+
+      overlayImg.src = src;
+      overlay.classList.add("show");
+    }
+
+    function closeOverlay() {
+      document.getElementById("overlay").classList.remove("show");
+    }
+
+    function resetCamera() {
+      controls.reset();
+    }
+
+    function highlightRandom() {
+      if (!model) return;
+      const meshes = [];
+      model.traverse(c => c.isMesh && meshes.push(c));
+      if (meshes.length > 0) {
+        const randomMesh = meshes[Math.floor(Math.random() * meshes.length)];
+        highlightPart(randomMesh);
+        showPartInfo(nameMap[randomMesh.name] || randomMesh.name.replace(/_/g, " "));
+      }
+    }
+
+    function goToMicroscop() {
+      window.open("https://histologyguide.com/slideview/MH-145-skin/15-slide-1.html", "_blank");
+    }
+
+    function onWindowResize() {
+      camera.aspect = viewer.clientWidth / viewer.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // 🔮 خلفية متحركة جميلة بالخلف
+    function animateBackground() {
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+      let w, h, particles = [];
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        particles = Array.from({ length: 80 }, () => ({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2 + 1,
+          dx: Math.random() * 1 - 0.5,
+          dy: Math.random() * 1 - 0.5
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "#ff77ff";
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < 0 || p.x > w) p.dx *= -1;
+          if (p.y < 0 || p.y > h) p.dy *= -1;
+        });
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener("resize", resize);
+      resize();
+      draw();
+    }
+  </script>
+  <style>
+    .highlight {
+  background-color: rgba(255, 217, 0, 0.35);
+  color: #fff6a9;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.highlight:hover {
+  background-color: rgba(255, 217, 0, 0.6);
+  transform: scale(1.02);
+}
+
+  </style>
+  
+</body>
+</html>
