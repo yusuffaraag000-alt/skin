@@ -1,118 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-    /* ⚙️ الأساس العام */
-body {
-  background: #0e0e10;
-  color: #f0f0f0;
-  font-family: "Poppins", sans-serif;
-  line-height: 1.8;
-  margin: 0;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-/* 🧱 تنسيق المحتوى الأساسي */
-main {
-  max-width: 900px;
-  width: 100%;
-  background: #1a1a1d;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
-}
-
-/* ✨ العناوين */
-h1, h2, h3 {
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* 📖 الفقرات */
-p {
-  text-align: justify;
-  margin-bottom: 18px;
-  font-size: 1rem;
-}
-
-/* 🎨 تحديد النصوص (هايلايت) */
-mark.highlight {
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-  color: #fff;
-  display: inline-block;
-  margin-bottom: 4px;
-  word-wrap: break-word;
-}
-
-mark:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
-}
-
-/* 🧭 فواصل */
-hr {
-  border: none;
-  border-top: 1px solid #333;
-  margin: 30px 0;
-  width: 100%;
-}
-
-/* 📱 استجابة الموبايل */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  main {
-    padding: 18px;
-    border-radius: 12px;
-  }
-
-  p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-
-  mark.highlight {
-    display: block;
-    margin-bottom: 8px;
-    padding: 6px 10px;
-    text-align: left;
-    font-size: 0.95rem;
-  }
-
-  h1, h2, h3 {
-    font-size: 1.3rem;
-  }
-}
-
-/* 📱 شاشات أصغر جدًا (موبايلات صغيرة جدًا) */
-@media (max-width: 480px) {
-  main {
-    padding: 14px;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
-
-  h1, h2, h3 {
-    font-size: 1.1rem;
-  }
-}
-
-  </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Histology - Veterinary Skin</title>
   <style>
+    /* ===== إعداد العرض للموبايل فقط ===== */
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  /* ✅ جعل كل العناصر تتراص عموديًا */
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* 🎮 الموديل 3D */
+  #viewer {
+    width: 100%;
+    height: 60vh; /* الموديل ياخد الجزء الأكبر من الشاشة */
+    background: radial-gradient(circle at center, #0d0d0d, #000);
+  }
+
+  /* 🧾 لوحة المعلومات */
+  #infoPanel {
+    width: 100%;
+    height: 40vh;
+    background: rgba(20, 20, 25, 0.95);
+    border-top: 2px solid #ff69b4;
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    backdrop-filter: blur(8px);
+  }
+
+  /* 📋 قائمة الأجزاء */
+  #partsList {
+    width: 100%;
+    background: rgba(15, 15, 20, 0.9);
+    padding: 10px;
+    border-top: 1px solid #ff69b4;
+    overflow-x: auto;
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+  }
+
+  /* 🎨 تنسيق الأزرار أو العناصر داخل القائمة */
+  #partsList button {
+    background: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+  }
+
+  #partsList button:hover {
+    background: #ff85c1;
+    transform: scale(1.05);
+  }
+
+  /* 🎭 تحسين عرض النصوص */
+  #infoTitle {
+    font-size: 1.2rem;
+    color: #ff69b4;
+    margin-bottom: 5px;
+  }
+
+  #infoText {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* ✅ تحسين التمرير */
+  #infoPanel::-webkit-scrollbar {
+    width: 5px;
+  }
+  #infoPanel::-webkit-scrollbar-thumb {
+    background: #ff69b4;
+    border-radius: 10px;
+  }
+}
+
+  </style>
+  <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -1245,6 +1225,8 @@ They produce melanin, the pigment that gives skin its color and protects it from
 }
 
   </style>
-  
+  <style>
+    
+  </style>
 </body>
 </html>
